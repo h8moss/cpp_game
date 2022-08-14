@@ -1,0 +1,77 @@
+#include "raylib.h"
+
+#include <iostream>
+
+#include "headings/entity.hpp"
+#include "headings/entityManager.hpp"
+#include "headings/physicsEntity.hpp"
+
+//------------------------------------------------------------------------------------------
+// Program main entry point
+//------------------------------------------------------------------------------------------
+int main()
+{
+    // Initialization
+    //--------------------------------------------------------------------------------------
+    const int screenWidth{800};
+    const int screenHeight{450};
+
+    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+
+    SetTargetFPS(60); // Set our game to run at 60 frames-per-second
+    //--------------------------------------------------------------------------------------
+
+    for (Entity *e : EntityManager::getInstance()->getEntities())
+    {
+        e->setup();
+    }
+
+    // Main game loop
+    while (!WindowShouldClose()) // Detect window close button or ESC key
+    {
+        // Physics Update
+        //----------------------------------------------------------------------------------
+        for (Entity *e : EntityManager::getInstance()->getEntities())
+        {
+            PhysicsEntity *pe{dynamic_cast<PhysicsEntity *>(e)};
+            if (pe != nullptr)
+            {
+                pe->physicsUpdate();
+            }
+        }
+
+        // Update
+        //----------------------------------------------------------------------------------
+        for (Entity *e : EntityManager::getInstance()->getEntities())
+        {
+            e->update();
+        }
+        //----------------------------------------------------------------------------------
+
+        // Draw
+        //----------------------------------------------------------------------------------
+        BeginDrawing();
+        ClearBackground(WHITE);
+
+        for (Entity *e : EntityManager::getInstance()->getEntities())
+        {
+            e->draw();
+        }
+
+        // DEBUG DRAW
+        // ----------------------------------------------------------------------------------
+        bool gp = IsGamepadAvailable(0);
+        DrawText(gp ? "gamepad is available" : "gamepad is unavailable", 10, 10, 20, gp ? GREEN : RED);
+        // ----------------------------------------------------------------------------------
+
+        EndDrawing();
+        //-----------------------------------------------------------------------------------
+    }
+
+    // De-Initialization
+    //---------------------------------------------------------------------------------------
+    CloseWindow(); // Close window and OpenGL context
+    //---------------------------------------------------------------------------------------
+
+    return 0;
+}

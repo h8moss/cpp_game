@@ -1,0 +1,21 @@
+{
+    "tasks": [
+        {
+            "type": "process",
+            "label": "compile",
+            "command": "mingw32-make.exe", // ! replace with path to mingw32-make
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Tarea generada por el depurador."
+        }
+    ],
+    "version": "2.0.0"
+}
