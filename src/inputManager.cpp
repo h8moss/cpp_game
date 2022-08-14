@@ -9,6 +9,11 @@ int InputManager::getHorizontalInput()
     if (IsGamepadAvailable(0))
     {
         float axisMovement = GetGamepadAxisMovement(0, GAMEPAD_AXIS_LEFT_X);
+        if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_LEFT))
+            axisMovement -= 1;
+        if (IsGamepadButtonDown(0, GAMEPAD_BUTTON_LEFT_FACE_RIGHT))
+            axisMovement += 1;
+
         result = axisMovement > 0.2f
                      ? 1
                  : axisMovement < -0.2f
@@ -28,5 +33,5 @@ int InputManager::getHorizontalInput()
 
 bool InputManager::getJump()
 {
-    return IsKeyPressed(KEY_SPACE) || IsGamepadAvailable(0) && IsGamepadButtonPressed(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN);
+    return IsKeyPressed(KEY_SPACE) || (IsGamepadAvailable(0) && IsGamepadButtonPressed(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN));
 }
