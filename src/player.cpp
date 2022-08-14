@@ -2,6 +2,8 @@
 
 #include "raylib.h"
 
+#include "headings/inputManager.hpp"
+
 // TODO: Implement delta time everywhere
 
 Player *Player::instance = nullptr;
@@ -26,21 +28,12 @@ void Player::setup() {}
 
 void Player::update()
 {
-    if (isGrounded && IsKeyPressed(KEY_SPACE))
+    if (isGrounded && InputManager::getJump())
     {
         fallingSpeed = -jumpForce;
-        isGrounded = false;
     }
 
-    float xMovement{};
-    if (IsKeyDown(KEY_A))
-    {
-        xMovement = -movementSpeed;
-    }
-    else if (IsKeyDown(KEY_D))
-    {
-        xMovement = movementSpeed;
-    }
+    float xMovement{InputManager::getHorizontalInput() * movementSpeed};
 
     position = {position.x + xMovement, position.y};
 }
