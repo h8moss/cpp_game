@@ -13,7 +13,7 @@ protected:
 public:
     Entity(std::string, Vector2, Vector2);
     Entity(std::string);
-    ~Entity();
+    virtual ~Entity() = 0;
 
     virtual void update() = 0;
     virtual void setup() = 0;
