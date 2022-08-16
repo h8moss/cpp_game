@@ -5,18 +5,13 @@ class PhysicsEntity : public Entity
 {
 
 protected:
-    bool isTouchingT;
-    bool isTouchingL;
-    bool isTouchingD;
-    bool isTouchingR;
-
-    bool canMoveT;
-    bool canMoveL;
-    bool canMoveD;
-    bool canMoveR;
-
     bool isActive;
     bool isStatic;
+
+    PhysicsEntity *collisionTop;
+    PhysicsEntity *collisionLeft;
+    PhysicsEntity *collisionDown;
+    PhysicsEntity *collisionRight;
 
 public:
     PhysicsEntity(std::string id);
@@ -27,10 +22,14 @@ public:
 
     bool hasCollision() const;
 
-    bool getCanMoveT();
-    bool getCanMoveL();
-    bool getCanMoveD();
-    bool getCanMoveR();
-    bool getIsActive();
-    bool getIsStatic();
+    // Holy shit TL;DR stands for Top, Left, Down, Right.
+    bool isTouchingT() const;
+    bool isTouchingL() const;
+    bool isTouchingD() const;
+    bool isTouchingR() const;
+
+    bool canMoveUp() const;
+    bool canMoveLeft() const;
+    bool canMoveDown() const;
+    bool canMoveRight() const;
 };

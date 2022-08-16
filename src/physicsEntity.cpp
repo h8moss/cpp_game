@@ -20,20 +20,20 @@ PhysicsEntity::PhysicsEntity(std::string id,
     isActive = _isActive;
     isStatic = _isStatic;
 
-    isTouchingT = false;
-    isTouchingL = false;
-    isTouchingD = false;
-    isTouchingR = false;
+    collisionTop = nullptr;
+    collisionLeft = nullptr;
+    collisionDown = nullptr;
+    collisionRight = nullptr;
 }
 
 void PhysicsEntity::physicsUpdate()
 {
     if (isActive)
     {
-        isTouchingT = false;
-        isTouchingL = false;
-        isTouchingD = false;
-        isTouchingR = false;
+        collisionTop = nullptr;
+        collisionLeft = nullptr;
+        collisionDown = nullptr;
+        collisionRight = nullptr;
 
         if (!isStatic)
         {
@@ -43,10 +43,10 @@ void PhysicsEntity::physicsUpdate()
 
                 if (entity->getUniqueId() != uniqueId && pEntity != nullptr && pEntity->isActive)
                 {
-                    if (CheckCollisionRecs(getBoundingBox(), entity->getBoundingBox()))
+                    if (CheckCollisionRecs(getBoundingBox(), pEntity->getBoundingBox()))
                     {
                         Rectangle collision{
-                            GetCollisionRec(getBoundingBox(), entity->getBoundingBox())};
+                            GetCollisionRec(getBoundingBox(), pEntity->getBoundingBox())};
                         float yMovement{};
                         float xMovement{};
                         if (collision.height <= collision.width)
@@ -55,11 +55,11 @@ void PhysicsEntity::physicsUpdate()
                             if (collision.y > position.y)
                             {
                                 yMovement *= -1;
-                                isTouchingD = true;
+                                collisionDown = pEntity;
                             }
                             else
                             {
-                                isTouchingT = true;
+                                collisionTop = pEntity;
                             }
                         }
                         else
@@ -68,11 +68,11 @@ void PhysicsEntity::physicsUpdate()
                             if (collision.x > position.x)
                             {
                                 xMovement *= -1;
-                                isTouchingR = true;
+                                collisionRight = pEntity;
                             }
                             else
                             {
-                                isTouchingL = true;
+                                collisionLeft = pEntity;
                             }
                         }
                         position = {position.x + xMovement, position.y + yMovement};
@@ -85,5 +85,46 @@ void PhysicsEntity::physicsUpdate()
 
 bool PhysicsEntity::hasCollision() const
 {
-    return isTouchingT || isTouchingL || isTouchingD || isTouchingR;
+    return isTouchingT() || isTouchingL() || isTouchingD() || isTouchingR();
+}
+
+bool PhysicsEntity::isTouchingT() const { return collisionTop != nullptr; }
+bool PhysicsEntity::isTouchingL() const { return collisionLeft != nullptr; }
+bool PhysicsEntity::isTouchingD() const { return collisionDown != nullptr; }
+bool PhysicsEntity::isTouchingR() const { return collisionRight != nullptr; }
+
+bool PhysicsEntity::canMoveUp() const
+{
+    return isStatic
+               ? false
+               : (isTouchingT()
+                      ? collisionTop->canMoveUp()
+                      : true);
+}
+
+bool PhysicsEntity::canMoveLeft() const
+{
+    return isStatic
+               ? false
+               : (isTouchingL()
+                      ? collisionLeft->canMoveLeft()
+                      : true);
+}
+
+bool PhysicsEntity::canMoveDown() const
+{
+    return isStatic
+               ? false
+               : (isTouchingD()
+                      ? collisionDown->canMoveDown()
+                      : true);
+}
+
+bool PhysicsEntity::canMoveRight() const
+{
+    return isStatic
+               ? false
+               : (isTouchingR()
+                      ? collisionRight->canMoveRight()
+                      : true);
 }
