@@ -19,19 +19,21 @@ int main()
     InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
 
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
-    //--------------------------------------------------------------------------------------
 
-    for (Entity *e : EntityManager::getInstance()->getEntities())
+    EntityManager *em = EntityManager::getInstance();
+
+    for (Entity *e : em->getEntities())
     {
         e->setup();
     }
 
+    //--------------------------------------------------------------------------------------
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
     {
         // Physics Update
         //----------------------------------------------------------------------------------
-        for (Entity *e : EntityManager::getInstance()->getEntities())
+        for (Entity *e : em->getEntities())
         {
             PhysicsEntity *pe{dynamic_cast<PhysicsEntity *>(e)};
             if (pe != nullptr)
@@ -42,7 +44,7 @@ int main()
 
         // Update
         //----------------------------------------------------------------------------------
-        for (Entity *e : EntityManager::getInstance()->getEntities())
+        for (Entity *e : em->getEntities())
         {
             e->update();
         }
@@ -53,7 +55,7 @@ int main()
         BeginDrawing();
         ClearBackground(WHITE);
 
-        for (Entity *e : EntityManager::getInstance()->getEntities())
+        for (Entity *e : em->getEntities())
         {
             e->draw();
         }
@@ -71,6 +73,7 @@ int main()
     // De-Initialization
     //---------------------------------------------------------------------------------------
     CloseWindow(); // Close window and OpenGL context
+    em->destroyInstance();
     //---------------------------------------------------------------------------------------
 
     return 0;
