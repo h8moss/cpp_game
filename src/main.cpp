@@ -62,8 +62,7 @@ int main()
 
         // DEBUG DRAW
         // ----------------------------------------------------------------------------------
-        bool gp = IsGamepadAvailable(0);
-        DrawText(gp ? "gamepad is available" : "gamepad is unavailable", 10, 10, 20, gp ? GREEN : RED);
+
         // ----------------------------------------------------------------------------------
 
         EndDrawing();
