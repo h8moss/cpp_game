@@ -4,8 +4,8 @@
 class PhysicsCube : public PhysicsEntity
 {
 public:
-    PhysicsCube(std::string, float);
-    PhysicsCube(std::string, float, Vector2, Vector2);
+    PhysicsCube(std::string);
+    PhysicsCube(std::string, Vector2, Vector2);
 
     virtual void setup() override;
     virtual void update() override;

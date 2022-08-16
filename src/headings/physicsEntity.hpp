@@ -5,18 +5,32 @@ class PhysicsEntity : public Entity
 {
 
 protected:
-    float fallingSpeed;
-    bool isGrounded;
+    bool isTouchingT;
+    bool isTouchingL;
+    bool isTouchingD;
+    bool isTouchingR;
 
-    static float gravity;
+    bool canMoveT;
+    bool canMoveL;
+    bool canMoveD;
+    bool canMoveR;
 
-public:
-    PhysicsEntity(std::string, float);
-    PhysicsEntity(std::string, float, Vector2, Vector2);
-    PhysicsEntity(std::string, float, Vector2, Vector2, bool, bool);
-
-    void physicsUpdate();
-    float gravityMultiplier;
     bool isActive;
     bool isStatic;
+
+public:
+    PhysicsEntity(std::string id);
+    PhysicsEntity(std::string id, Vector2 position, Vector2 size);
+    PhysicsEntity(std::string id, Vector2 position, Vector2 size, bool isStatic, bool isActive);
+
+    void physicsUpdate();
+
+    bool hasCollision() const;
+
+    bool getCanMoveT();
+    bool getCanMoveL();
+    bool getCanMoveD();
+    bool getCanMoveR();
+    bool getIsActive();
+    bool getIsStatic();
 };

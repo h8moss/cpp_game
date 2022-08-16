@@ -6,36 +6,37 @@
 
 // TODO: Implement delta time everywhere
 
-Player *Player::instance = nullptr;
-
-Player::Player() : PhysicsEntity("player", 1, {500, 100}, {40, 80})
+Player::Player() : PhysicsEntity("player", {500, 100}, {40, 80})
 {
     movementSpeed = 5.0f;
     jumpForce = 5.0f;
-}
-
-Player *Player::getInstance()
-{
-    if (instance == nullptr)
-    {
-        instance = new Player();
-    }
-
-    return instance;
 }
 
 void Player::setup() {}
 
 void Player::update()
 {
-    if (isGrounded && InputManager::getJump())
+    float xMovement{InputManager::getHorizontalInput() * movementSpeed};
+    float yMovement{InputManager::getVerticalInput() * movementSpeed};
+
+    if (xMovement > 0 && isTouchingR)
     {
-        fallingSpeed = -jumpForce;
+        xMovement = 0;
+    }
+    else if (xMovement < 0 && isTouchingL)
+    {
+        xMovement = 0;
+    }
+    if (yMovement > 0 && isTouchingD)
+    {
+        yMovement = 0;
+    }
+    else if (yMovement < 0 && isTouchingT)
+    {
+        yMovement = 0;
     }
 
-    float xMovement{InputManager::getHorizontalInput() * movementSpeed};
-
-    position = {position.x + xMovement, position.y};
+    position = {position.x + xMovement, position.y + yMovement};
 }
 
 void Player::draw() const

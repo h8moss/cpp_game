@@ -4,52 +4,42 @@
 
 #include "headings/entityManager.hpp"
 
-float PhysicsEntity::gravity{0.2f};
-
 PhysicsEntity::PhysicsEntity(std::string id,
-                             float _gravityMultiplier,
                              Vector2 position,
                              Vector2 size)
-    : PhysicsEntity(id, _gravityMultiplier, position, size, true, false) {}
+    : PhysicsEntity(id, position, size, true, false) {}
 
-PhysicsEntity::PhysicsEntity(
-    std::string id,
-    float multiplier)
-    : PhysicsEntity(id, multiplier, {0, 0}, {1, 1}) {}
+PhysicsEntity::PhysicsEntity(std::string id) : PhysicsEntity(id, {0, 0}, {1, 1}) {}
 
 PhysicsEntity::PhysicsEntity(std::string id,
-                             float _gravityMultiplier,
                              Vector2 position,
                              Vector2 size,
                              bool _isActive,
                              bool _isStatic) : Entity(id, position, size)
 {
-    isGrounded = false;
-    fallingSpeed = 0;
-    gravityMultiplier = _gravityMultiplier;
     isActive = _isActive;
     isStatic = _isStatic;
+
+    isTouchingT = false;
+    isTouchingL = false;
+    isTouchingD = false;
+    isTouchingR = false;
 }
 
 void PhysicsEntity::physicsUpdate()
 {
     if (isActive)
     {
+        isTouchingT = false;
+        isTouchingL = false;
+        isTouchingD = false;
+        isTouchingR = false;
+
         if (!isStatic)
         {
-            if (!isGrounded)
-                fallingSpeed += gravity * gravityMultiplier;
-
-            position = {position.x, position.y + fallingSpeed};
-        }
-        isGrounded = false;
-
-        for (auto &entity : EntityManager::getInstance()->getEntities())
-        {
-
-            PhysicsEntity *pEntity{dynamic_cast<PhysicsEntity *>(entity)};
-            if (!isStatic)
+            for (auto &entity : EntityManager::getInstance()->getEntities())
             {
+                PhysicsEntity *pEntity{dynamic_cast<PhysicsEntity *>(entity)};
 
                 if (entity->getUniqueId() != uniqueId && pEntity != nullptr && pEntity->isActive)
                 {
@@ -61,20 +51,28 @@ void PhysicsEntity::physicsUpdate()
                         float xMovement{};
                         if (collision.height <= collision.width)
                         {
-                            yMovement = collision.height - 0.1f;
+                            yMovement = collision.height - 0.01f;
                             if (collision.y > position.y)
                             {
                                 yMovement *= -1;
-                                isGrounded = true;
-                                fallingSpeed = 0;
+                                isTouchingD = true;
+                            }
+                            else
+                            {
+                                isTouchingT = true;
                             }
                         }
                         else
                         {
-                            xMovement = collision.height;
+                            xMovement = collision.width - 0.01f;
                             if (collision.x > position.x)
                             {
                                 xMovement *= -1;
+                                isTouchingR = true;
+                            }
+                            else
+                            {
+                                isTouchingL = true;
                             }
                         }
                         position = {position.x + xMovement, position.y + yMovement};
@@ -83,4 +81,9 @@ void PhysicsEntity::physicsUpdate()
             }
         }
     }
+}
+
+bool PhysicsEntity::hasCollision() const
+{
+    return isTouchingT || isTouchingL || isTouchingD || isTouchingR;
 }

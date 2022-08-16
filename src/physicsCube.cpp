@@ -4,12 +4,12 @@
 #include "headings/physicsEntity.hpp"
 #include "headings/entityManager.hpp"
 
-PhysicsCube::PhysicsCube(std::string id, float gravityMultiplier) : PhysicsEntity(id, gravityMultiplier) {}
-PhysicsCube::PhysicsCube(std::string id, float gravityMultiplier, Vector2 position, Vector2 size) : PhysicsEntity(id, gravityMultiplier, position, size) {}
+PhysicsCube::PhysicsCube(std::string id) : PhysicsEntity(id) {}
+PhysicsCube::PhysicsCube(std::string id, Vector2 position, Vector2 size) : PhysicsEntity(id, position, size) {}
 
 void PhysicsCube::draw() const
 {
-    DrawRectangleRec(getBoundingBox(), isGrounded ? GREEN : RED);
+    DrawRectangleRec(getBoundingBox(), hasCollision() ? GREEN : RED);
 }
 void PhysicsCube::setup() {}
 
