@@ -4,15 +4,12 @@
 class Player : public PhysicsEntity
 {
 private:
-    static Player *instance;
-    Player();
-
 protected:
     float movementSpeed;
     float jumpForce;
 
 public:
-    static Player *getInstance();
+    Player();
 
     virtual void setup() override;
     virtual void update() override;
