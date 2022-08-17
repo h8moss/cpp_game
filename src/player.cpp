@@ -23,35 +23,36 @@ void Player::update()
 {
     Vector2 movement{(float)InputManager::getHorizontalInput(), (float)InputManager::getVerticalInput()};
 
-    if (movement.x > 0 && !canMoveRight())
+    if (dashTimer <= 0)
     {
-        movement.x = 0;
+        move(movement, movementSpeed);
+        if (InputManager::getDash())
+        {
+            dashTimer = dashDuration;
+            dashDirection = movement;
+        }
     }
-    else if (movement.x < 0 && !canMoveLeft())
+    else
     {
-        movement.x = 0;
+        move(dashDirection, dashSpeed);
+        dashTimer--;
     }
-    if (movement.y > 0 && !canMoveDown())
+}
+
+void Player::move(Vector2 direction, float speed)
+{
+    direction = VectorOP::normalize(direction);
+
+    if ((direction.x > 0 && !canMoveRight()) || (direction.x < 0 && !canMoveLeft()))
     {
-        movement.y = 0;
+        direction.x = 0;
     }
-    else if (movement.y < 0 && !canMoveUp())
+    if ((direction.y > 0 && !canMoveDown()) || (direction.y < 0 && !canMoveUp()))
     {
-        movement.y = 0;
+        direction.y = 0;
     }
 
-    position = VectorOP::add(position, VectorOP::multiply(movement, movementSpeed));
-
-    if (IsKeyPressed(KEY_SPACE) && dashTimer <= 0)
-    {
-        dashTimer = dashDuration;
-        dashDirection = movement;
-    }
-
-    if (--dashTimer > 0)
-    {
-        position = VectorOP::add(position, VectorOP::multiply(VectorOP::normalize(dashDirection), dashSpeed));
-    }
+    position = VectorOP::add(position, VectorOP::multiply(direction, speed));
 }
 
 void Player::draw() const

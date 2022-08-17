@@ -12,6 +12,8 @@ private:
 protected:
     float movementSpeed;
 
+    void move(Vector2 direction, float speed);
+
 public:
     Player();
 
