@@ -8,7 +8,7 @@ private:
 public:
     static int getHorizontalInput();
     static int getVerticalInput();
-    static bool getJump();
+    static bool getDash();
 
     static bool getSpecial1Pressed();
 };

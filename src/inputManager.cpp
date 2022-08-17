@@ -46,7 +46,7 @@ int InputManager::getAxisInput(int axis, int positiveButton, int negativeButton,
     return result;
 }
 
-bool InputManager::getJump()
+bool InputManager::getDash()
 {
     return IsKeyPressed(KEY_SPACE) || (IsGamepadAvailable(0) && IsGamepadButtonPressed(0, GAMEPAD_BUTTON_RIGHT_FACE_DOWN));
 }
