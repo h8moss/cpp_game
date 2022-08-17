@@ -3,43 +3,62 @@
 #include "raylib.h"
 
 #include "headings/inputManager.hpp"
+#include "headings/vectorOperations.hpp"
 
 // TODO: Implement delta time everywhere
 
 Player::Player() : PhysicsEntity("player", {500, 100}, {40, 40})
 {
+    dashSpeed = 25.0f;
+    dashDuration = 6; // tenth of a second
+    dashTimer = 0;
+    dashDirection = {0, 0};
+
     movementSpeed = 5.0f;
-    jumpForce = 5.0f;
 }
 
 void Player::setup() {}
 
 void Player::update()
 {
-    float xMovement{InputManager::getHorizontalInput() * movementSpeed};
-    float yMovement{InputManager::getVerticalInput() * movementSpeed};
+    Vector2 movement{(float)InputManager::getHorizontalInput(), (float)InputManager::getVerticalInput()};
 
-    if (xMovement > 0 && !canMoveRight())
+    if (movement.x > 0 && !canMoveRight())
     {
-        xMovement = 0;
+        movement.x = 0;
     }
-    else if (xMovement < 0 && !canMoveLeft())
+    else if (movement.x < 0 && !canMoveLeft())
     {
-        xMovement = 0;
+        movement.x = 0;
     }
-    if (yMovement > 0 && !canMoveDown())
+    if (movement.y > 0 && !canMoveDown())
     {
-        yMovement = 0;
+        movement.y = 0;
     }
-    else if (yMovement < 0 && !canMoveUp())
+    else if (movement.y < 0 && !canMoveUp())
     {
-        yMovement = 0;
+        movement.y = 0;
     }
 
-    position = {position.x + xMovement, position.y + yMovement};
+    position = VectorOP::add(position, VectorOP::multiply(movement, movementSpeed));
+
+    if (IsKeyPressed(KEY_SPACE) && dashTimer <= 0)
+    {
+        dashTimer = dashDuration;
+        dashDirection = movement;
+    }
+
+    if (--dashTimer > 0)
+    {
+        position = VectorOP::add(position, VectorOP::multiply(VectorOP::normalize(dashDirection), dashSpeed));
+    }
 }
 
 void Player::draw() const
 {
-    DrawEllipse(position.x + size.x / 2, position.y + size.y / 2, (float)size.x / 2, (float)size.y / 2, PURPLE);
+    DrawEllipse(position.x + size.x / 2, position.y + size.y / 2, (float)size.x / 2, (float)size.y / 2, dashTimer == 0 ? PURPLE : GREEN);
+
+    // DEBUG
+    std::string positionStr = "[" + std::to_string(position.x) + ", " + std::to_string(position.y) + "]";
+    DrawText(positionStr.c_str(), 10, 10, 20, BLACK);
 }

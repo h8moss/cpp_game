@@ -4,9 +4,13 @@
 class Player : public PhysicsEntity
 {
 private:
+    float dashSpeed;
+    int dashDuration;
+    int dashTimer;
+    Vector2 dashDirection;
+
 protected:
     float movementSpeed;
-    float jumpForce;
 
 public:
     Player();
