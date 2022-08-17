@@ -57,8 +57,4 @@ void Player::update()
 void Player::draw() const
 {
     DrawEllipse(position.x + size.x / 2, position.y + size.y / 2, (float)size.x / 2, (float)size.y / 2, dashTimer == 0 ? PURPLE : GREEN);
-
-    // DEBUG
-    std::string positionStr = "[" + std::to_string(position.x) + ", " + std::to_string(position.y) + "]";
-    DrawText(positionStr.c_str(), 10, 10, 20, BLACK);
 }
