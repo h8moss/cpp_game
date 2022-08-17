@@ -5,10 +5,10 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "(gdb) Debug",
+             "name": "(gdb) Debug",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/main.exe",
+            "program": "${workspaceFolder}/build/debug/main.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
@@ -28,7 +28,34 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "compile",
-        }
+            "preLaunchTask": "Debug compile",
+        },
+{
+           "name": "Run release",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "${workspaceFolder}/build/release/main.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${workspaceFolder}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "gdb.exe", // ! Replace the path to gdb
+            "setupCommands": [
+                {
+                    "description": "Enable pretty printing for gdb",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description":  "Set dissasembly type to intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            "preLaunchTask": "Release compile",
+        },
+
     ]
 }
