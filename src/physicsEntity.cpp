@@ -51,7 +51,7 @@ void PhysicsEntity::physicsUpdate()
                         float xMovement{};
                         if (collision.height <= collision.width)
                         {
-                            yMovement = collision.height - 0.01f;
+                            yMovement = collision.height - 0.005f;
                             if (collision.y > position.y)
                             {
                                 yMovement *= -1;
@@ -64,7 +64,7 @@ void PhysicsEntity::physicsUpdate()
                         }
                         else
                         {
-                            xMovement = collision.width - 0.01f;
+                            xMovement = collision.width - 0.005f;
                             if (collision.x > position.x)
                             {
                                 xMovement *= -1;
