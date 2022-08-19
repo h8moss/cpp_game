@@ -3,6 +3,14 @@
 
 namespace VectorOP
 {
+    namespace
+    { // Private namespace
+        float floatLerp(float v1, float v2, float t)
+        {
+            return v1 + (v2 - v1) * t;
+        }
+    }
+
     Vector2 add(Vector2 v1, Vector2 v2)
     {
         return {v1.x + v2.x, v1.y + v2.y};
@@ -117,4 +125,29 @@ namespace VectorOP
     {
         return {v1.x * v2.x, v1.y * v2.y, v1.z * v2.z, v1.w * v2.w};
     }
+
+    Vector2 lerp(Vector2 v1, Vector2 v2, float t)
+    {
+        return {
+            floatLerp(v1.x, v2.x, t),
+            floatLerp(v1.y, v2.y, t)};
+    }
+
+    Vector3 lerp(Vector3 v1, Vector3 v2, float t)
+    {
+        return {
+            floatLerp(v1.x, v2.x, t),
+            floatLerp(v1.y, v2.y, t),
+            floatLerp(v1.z, v2.z, t)};
+    }
+
+    Vector4 lerp(Vector4 v1, Vector4 v2, float t)
+    {
+        return {
+            floatLerp(v1.x, v2.x, t),
+            floatLerp(v1.y, v2.y, t),
+            floatLerp(v1.z, v2.z, t),
+            floatLerp(v1.w, v2.w, t)};
+    }
+
 }

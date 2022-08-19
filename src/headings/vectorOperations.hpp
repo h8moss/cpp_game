@@ -32,4 +32,8 @@ namespace VectorOP
     Vector2 dot(Vector2 v1, Vector2 v2);
     Vector3 dot(Vector3 v1, Vector3 v2);
     Vector4 dot(Vector4 v1, Vector4 v2);
+
+    Vector2 lerp(Vector2 v1, Vector2 v2, float t);
+    Vector3 lerp(Vector3 v1, Vector3 v2, float t);
+    Vector4 lerp(Vector4 v1, Vector4 v2, float t);
 }
