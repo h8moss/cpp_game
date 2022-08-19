@@ -9,7 +9,7 @@
 
 std::string Player::playerID = "Player";
 
-Player::Player() : PhysicsEntity(playerID, {500, 100}, {40, 40})
+Player::Player() : PhysicsEntity(playerID, {0, 0}, {40, 40})
 {
     dashSpeed = 25.0f;
     dashDuration = 6; // tenth of a second
@@ -59,5 +59,5 @@ void Player::move(Vector2 direction, float speed)
 
 void Player::draw() const
 {
-    DrawEllipse(position.x + size.x / 2, position.y + size.y / 2, (float)size.x / 2, (float)size.y / 2, dashTimer == 0 ? PURPLE : GREEN);
+    DrawCircle(position.x + size.x / 2, position.y + size.y / 2, size.x / 2, dashTimer == 0 ? PURPLE : GREEN);
 }

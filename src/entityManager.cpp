@@ -6,15 +6,18 @@
 
 EntityManager *EntityManager::instance{nullptr};
 
-EntityManager::EntityManager()
+EntityManager::EntityManager(std::vector<Entity *> entities, Camera2D camera)
+    : entities{entities}, camera{camera}
 {
-    entities = {
-        new PhysicsCube("cube1", {180, 100}, {50, 50}),
-        new PhysicsCube("cube2", {250, 100}, {50, 50}),
-        new PhysicsFloor("floor", {0, 420}, {800, 50}),
-        new Player(),
-    };
 }
+// {
+//     entities = {
+//         new PhysicsCube("cube1", {180, 100}, {50, 50}),
+//         new PhysicsCube("cube2", {250, 100}, {50, 50}),
+//         new PhysicsFloor("floor", {0, 420}, {800, 50}),
+//         new Player(),
+//     };
+// }
 
 EntityManager::~EntityManager()
 {
@@ -27,11 +30,22 @@ EntityManager::~EntityManager()
     entities = {};
 }
 
+EntityManager *EntityManager::createInstance(std::vector<Entity *> entities, Camera2D camera)
+{
+    if (instance != nullptr)
+    {
+        delete instance;
+        instance = nullptr;
+    }
+    instance = new EntityManager(entities, camera);
+    return instance;
+}
+
 EntityManager *EntityManager::getInstance()
 {
     if (instance == nullptr)
     {
-        instance = new EntityManager();
+        instance = new EntityManager({}, {});
     }
     return instance;
 }

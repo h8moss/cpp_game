@@ -8,12 +8,15 @@ class EntityManager
 {
 private:
     static EntityManager *instance;
-    EntityManager();
+    EntityManager(std::vector<Entity *> entities, Camera2D camera);
     ~EntityManager();
 
     std::vector<Entity *> entities;
 
 public:
+    Camera2D camera;
+
+    static EntityManager *createInstance(std::vector<Entity *> entities, Camera2D camera);
     static EntityManager *getInstance();
     static void destroyInstance();
 
