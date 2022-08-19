@@ -39,26 +39,9 @@ namespace VectorOP
         return {v1.x - v2.x, v1.y - v2.y, v1.z - v2.z, v1.w - v2.w};
     }
 
-    Vector2 multiply(Vector2 v1, long int scalar)
-    {
-        return {v1.x * scalar, v1.y * scalar};
-    }
-    Vector2 multiply(Vector2 v1, int scalar)
-    {
-        return {v1.x * scalar, v1.y * scalar};
-    }
     Vector2 multiply(Vector2 v1, float scalar)
     {
         return {v1.x * scalar, v1.y * scalar};
-    }
-
-    Vector3 multiply(Vector3 v1, long int scalar)
-    {
-        return {v1.x * scalar, v1.y * scalar, v1.z * scalar};
-    }
-    Vector3 multiply(Vector3 v1, int scalar)
-    {
-        return {v1.x * scalar, v1.y * scalar, v1.z * scalar};
     }
 
     Vector3 multiply(Vector3 v1, float scalar)
@@ -66,14 +49,6 @@ namespace VectorOP
         return {v1.x * scalar, v1.y * scalar, v1.z * scalar};
     }
 
-    Vector4 multiply(Vector4 v1, long int scalar)
-    {
-        return {v1.x * scalar, v1.y * scalar, v1.z * scalar, v1.w * scalar};
-    }
-    Vector4 multiply(Vector4 v1, int scalar)
-    {
-        return {v1.x * scalar, v1.y * scalar, v1.z * scalar, v1.w * scalar};
-    }
     Vector4 multiply(Vector4 v1, float scalar)
     {
         return {v1.x * scalar, v1.y * scalar, v1.z * scalar, v1.w * scalar};
