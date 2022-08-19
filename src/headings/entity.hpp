@@ -19,6 +19,9 @@ public:
     virtual void setup() = 0;
     virtual void draw() const = 0;
 
+    Vector2 getPosition() const;
+    Vector2 getSize() const;
+
     std::string getUniqueId();
 
     Rectangle getBoundingBox() const;

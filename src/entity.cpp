@@ -25,3 +25,13 @@ Rectangle Entity::getBoundingBox() const
 {
     return {position.x, position.y, size.x, size.y};
 }
+
+Vector2 Entity::getPosition() const
+{
+    return position;
+}
+
+Vector2 Entity::getSize() const
+{
+    return size;
+}
