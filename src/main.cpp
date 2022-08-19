@@ -7,6 +7,7 @@
 #include "headings/physicsEntity.hpp"
 #include "headings/player.hpp"
 #include "headings/physicsCube.hpp"
+#include "headings/cameraController.hpp"
 
 //------------------------------------------------------------------------------------------
 // Program main entry point
@@ -23,11 +24,10 @@ int main()
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
     EntityManager *em = EntityManager::createInstance(
-        {
-            new PhysicsCube("cube1", {180, 100}, {50, 50}),
-            new PhysicsCube("cube2", {250, 100}, {50, 50}),
-            new Player(),
-        },
+        {new PhysicsCube("cube1", {180, 100}, {50, 50}),
+         new PhysicsCube("cube2", {250, 100}, {50, 50}),
+         new Player(),
+         new CameraController("cameraController")},
         {
             {screenWidth / 2, screenHeight / 2}, // origin offset to center
             {0, 0},                              // camera position
