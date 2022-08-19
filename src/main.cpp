@@ -27,11 +27,11 @@ int main()
             new PhysicsCube("cube1", {180, 100}, {50, 50}),
             new PhysicsCube("cube2", {250, 100}, {50, 50}),
             new Player(),
-            new PhysicalWall("wallL", {-1100, -1000}, {200, 1000}),
-            new PhysicalWall("wallT", {-700, -700}, {1000, 200}),
-            new PhysicalWall("wallR", {300, -500}, {200, 1000}),
-            new PhysicalWall("wallD", {-700, 700}, {1000, 200}),
-            new CameraController("cameraController", {-700, -700, 1500, 1500}),
+            new PhysicalWall("wallL", {-900, -800}, {200, 1500}),
+            new PhysicalWall("wallT", {-800, -900}, {1500, 200}),
+            new PhysicalWall("wallR", {700, -800}, {200, 1600}),
+            new PhysicalWall("wallD", {-800, 700}, {1500, 200}),
+            new CameraController("cameraController", {-750, -750, 1500, 1500}),
         },
         {
             {
