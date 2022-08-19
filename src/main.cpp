@@ -8,6 +8,8 @@
 #include "headings/player.hpp"
 #include "headings/physicsCube.hpp"
 #include "headings/cameraController.hpp"
+#include "headings/physicalWall.hpp"
+#include "headings/constants.hpp"
 
 //------------------------------------------------------------------------------------------
 // Program main entry point
@@ -16,23 +18,29 @@ int main()
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    const int screenWidth{800};
-    const int screenHeight{450};
-
-    InitWindow(screenWidth, screenHeight, "raylib [core] example - basic window");
+    InitWindow(Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT, Constants::WINDOW_TITLE);
 
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
     EntityManager *em = EntityManager::createInstance(
-        {new PhysicsCube("cube1", {180, 100}, {50, 50}),
-         new PhysicsCube("cube2", {250, 100}, {50, 50}),
-         new Player(),
-         new CameraController("cameraController")},
         {
-            {screenWidth / 2, screenHeight / 2}, // origin offset to center
-            {0, 0},                              // camera position
-            0,                                   // camera rotation
-            1                                    // camera zoom set to 1
+            new PhysicsCube("cube1", {180, 100}, {50, 50}),
+            new PhysicsCube("cube2", {250, 100}, {50, 50}),
+            new Player(),
+            new PhysicalWall("wallL", {-1100, -1000}, {200, 1000}),
+            new PhysicalWall("wallT", {-700, -700}, {1000, 200}),
+            new PhysicalWall("wallR", {300, -500}, {200, 1000}),
+            new PhysicalWall("wallD", {-700, 700}, {1000, 200}),
+            new CameraController("cameraController", {-700, -700, 1500, 1500}),
+        },
+        {
+            {
+                (float)Constants::SCREEN_WIDTH / 2,  // offset x from top left to center
+                (float)Constants::SCREEN_HEIGHT / 2, // offset y from top left to center
+            },
+            {0, 0}, // camera position
+            0,      // camera rotation
+            1       // camera zoom set to 1
         });
 
     for (Entity *e : em->getEntities())
@@ -76,7 +84,10 @@ int main()
 
 // DEBUG DRAW
 #ifdef DEBUG
-        DrawText("DEBUG", 10, 10, 20, RED);
+        for (Entity *e : em->getEntities())
+        {
+            e->debugDraw();
+        }
 #endif
         // ----------------------------------------------------------------------------------
 

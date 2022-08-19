@@ -35,3 +35,5 @@ Vector2 Entity::getSize() const
 {
     return size;
 }
+
+void Entity::debugDraw() const {}

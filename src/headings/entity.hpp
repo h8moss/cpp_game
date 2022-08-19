@@ -18,6 +18,7 @@ public:
     virtual void update() = 0;
     virtual void setup() = 0;
     virtual void draw() const = 0;
+    virtual void debugDraw() const;
 
     Vector2 getPosition() const;
     Vector2 getSize() const;
