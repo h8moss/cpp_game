@@ -7,7 +7,9 @@
 
 // TODO: Implement delta time everywhere
 
-Player::Player() : PhysicsEntity("player", {500, 100}, {40, 40})
+std::string Player::playerID = "Player";
+
+Player::Player() : PhysicsEntity(playerID, {500, 100}, {40, 40})
 {
     dashSpeed = 25.0f;
     dashDuration = 6; // tenth of a second

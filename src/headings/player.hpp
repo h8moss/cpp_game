@@ -17,6 +17,8 @@ protected:
 public:
     Player();
 
+    static std::string playerID;
+
     virtual void setup() override;
     virtual void update() override;
     virtual void draw() const override;
