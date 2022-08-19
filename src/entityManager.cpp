@@ -1,7 +1,6 @@
 #include "headings/entityManager.hpp"
 
 #include "headings/physicsCube.hpp"
-#include "headings/physicsFloor.hpp"
 #include "headings/player.hpp"
 
 EntityManager *EntityManager::instance{nullptr};
@@ -10,14 +9,6 @@ EntityManager::EntityManager(std::vector<Entity *> entities, Camera2D camera)
     : entities{entities}, camera{camera}
 {
 }
-// {
-//     entities = {
-//         new PhysicsCube("cube1", {180, 100}, {50, 50}),
-//         new PhysicsCube("cube2", {250, 100}, {50, 50}),
-//         new PhysicsFloor("floor", {0, 420}, {800, 50}),
-//         new Player(),
-//     };
-// }
 
 EntityManager::~EntityManager()
 {
