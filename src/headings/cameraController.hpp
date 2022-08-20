@@ -17,4 +17,5 @@ public:
     void setup() override;
     void update() override;
     void draw() const override;
+    void debugDraw() const override;
 };
