@@ -10,6 +10,7 @@
 #include "headings/cameraController.hpp"
 #include "headings/physicalWall.hpp"
 #include "headings/constants.hpp"
+#include "headings/debugFloor.hpp"
 
 //------------------------------------------------------------------------------------------
 // Program main entry point
@@ -24,6 +25,7 @@ int main()
 
     EntityManager *em = EntityManager::createInstance(
         {
+            new DebugFloor("FLOOR", {-750, -750}, {1500, 1500}),
             new PhysicsCube("cube1", {180, 100}, {50, 50}),
             new PhysicsCube("cube2", {250, 100}, {50, 50}),
             new Player(),
