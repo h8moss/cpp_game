@@ -59,6 +59,11 @@ Vector2 CameraController::bindCameraLocation(Vector2 cameraLocation, Vector2 cam
     return cameraLocation;
 }
 
+void CameraController::debugDraw() const
+{
+    DrawRectangleLines(cameraBounds.x + 5, cameraBounds.y + 5, cameraBounds.width - 10, cameraBounds.height - 10, GREEN);
+}
+
 void CameraController::draw() const
 {
 }
