@@ -59,5 +59,5 @@ void Player::move(Vector2 direction, float speed)
 
 void Player::draw() const
 {
-    DrawCircle(position.x + size.x / 2, position.y + size.y / 2, size.x / 2, dashTimer == 0 ? PURPLE : GREEN);
+    DrawCircle(position.x + size.x / 2, position.y + size.y / 2, size.x / 2, PURPLE);
 }
