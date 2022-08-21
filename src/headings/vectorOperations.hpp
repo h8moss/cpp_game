@@ -28,4 +28,13 @@ namespace VectorOP
     Vector2 lerp(Vector2 v1, Vector2 v2, float t);
     Vector3 lerp(Vector3 v1, Vector3 v2, float t);
     Vector4 lerp(Vector4 v1, Vector4 v2, float t);
+
+    float magnitude(Vector2 v);
+    float magnitude(Vector3 v);
+    float magnitude(Vector4 v);
+
+    float distance(Vector2 v1, Vector2 v2);
+    float distance(Vector3 v1, Vector3 v2);
+    float distance(Vector4 v1, Vector4 v2);
+
 }

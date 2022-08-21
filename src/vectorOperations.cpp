@@ -125,4 +125,32 @@ namespace VectorOP
             floatLerp(v1.w, v2.w, t)};
     }
 
+    float magnitude(Vector2 v)
+    {
+        return sqrt(v.x * v.x + v.y * v.y);
+    }
+    float magnitude(Vector3 v)
+    {
+        return sqrt(v.x * v.x + v.y * v.y + v.z * v.z);
+    }
+    float magnitude(Vector4 v)
+    {
+        return sqrt(v.x * v.x + v.y * v.y + v.z * v.z + v.w * v.w);
+    }
+
+    float distance(Vector2 v1, Vector2 v2)
+    {
+        return magnitude(subtract(v1, v2));
+    }
+
+    float distance(Vector3 v1, Vector3 v2)
+    {
+        return magnitude(subtract(v1, v2));
+    }
+
+    float distance(Vector4 v1, Vector4 v2)
+    {
+        return magnitude(subtract(v1, v2));
+    }
+
 }
