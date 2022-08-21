@@ -26,12 +26,11 @@ int main()
     EntityManager *em = EntityManager::createInstance(
         {
             new DebugFloor("FLOOR", {-750, -750}, {1500, 1500}),
-            new PhysicsCube("cube1", {180, 100}, {50, 50}),
-            new PhysicsCube("cube2", {250, 100}, {50, 50}),
             new Player(),
             new PhysicalWall("wallL", {-900, -800}, {200, 1500}),
             new PhysicalWall("wallT", {-800, -900}, {1500, 200}),
-            new PhysicalWall("wallR", {700, -800}, {200, 1600}),
+            new PhysicalWall("wallRHigh", {700, -800}, {200, 700}),
+            new PhysicalWall("wallRLow", {700, 100}, {200, 700}),
             new PhysicalWall("wallD", {-800, 700}, {1500, 200}),
             new CameraController("cameraController", {-750, -750, 1500, 1500}),
         },
@@ -49,7 +48,6 @@ int main()
     {
         e->setup();
     }
-
     //--------------------------------------------------------------------------------------
     // Main game loop
     while (!WindowShouldClose()) // Detect window close button or ESC key
