@@ -12,6 +12,8 @@
 #include "headings/constants.hpp"
 #include "headings/debugFloor.hpp"
 
+#include "headings/messageBus.hpp"
+
 //------------------------------------------------------------------------------------------
 // Program main entry point
 //------------------------------------------------------------------------------------------
@@ -25,6 +27,7 @@ int main()
 
     EntityManager *em = EntityManager::createInstance(
         {
+            new MessageBus(),
             new DebugFloor("FLOOR", {-750, -750}, {1500, 1500}),
             new Player(),
             new PhysicalWall("wallL", {-900, -800}, {200, 1500}),
@@ -90,7 +93,6 @@ int main()
         }
 #endif
         // ----------------------------------------------------------------------------------
-
         EndMode2D();
         EndDrawing();
         //-----------------------------------------------------------------------------------
