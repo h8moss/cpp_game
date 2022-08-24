@@ -21,7 +21,7 @@ int main()
 {
     // Initialization
     //--------------------------------------------------------------------------------------
-    InitWindow(Constants::SCREEN_WIDTH, Constants::SCREEN_HEIGHT, Constants::WINDOW_TITLE);
+    InitWindow(constants::SCREEN_WIDTH, constants::SCREEN_HEIGHT, constants::WINDOW_TITLE);
 
     SetTargetFPS(60); // Set our game to run at 60 frames-per-second
 
@@ -39,8 +39,8 @@ int main()
         },
         {
             {
-                (float)Constants::SCREEN_WIDTH / 2,  // offset x from top left to center
-                (float)Constants::SCREEN_HEIGHT / 2, // offset y from top left to center
+                (float)constants::SCREEN_WIDTH / 2,  // offset x from top left to center
+                (float)constants::SCREEN_HEIGHT / 2, // offset y from top left to center
             },
             {0, 0}, // camera position
             0,      // camera rotation
@@ -91,6 +91,9 @@ int main()
         {
             e->debugDraw();
         }
+        Vector2 fpsPos = GetScreenToWorld2D({10, 10}, em->camera);
+        DrawFPS(fpsPos.x, fpsPos.y);
+
 #endif
         // ----------------------------------------------------------------------------------
         EndMode2D();

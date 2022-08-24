@@ -1,9 +1,8 @@
 #pragma once
 
-class Constants
+namespace constants
 {
-public:
-    static const int SCREEN_WIDTH;
-    static const int SCREEN_HEIGHT;
-    static const char *WINDOW_TITLE;
-};
+    extern const int SCREEN_WIDTH;
+    extern const int SCREEN_HEIGHT;
+    extern const char *const WINDOW_TITLE;
+}

@@ -1,5 +1,8 @@
 #include "headings/constants.hpp"
 
-const int Constants::SCREEN_WIDTH = 800;
-const int Constants::SCREEN_HEIGHT = 600;
-const char *Constants::WINDOW_TITLE = "GAME";
+namespace constants
+{
+    extern const int SCREEN_WIDTH{800};
+    extern const int SCREEN_HEIGHT{600};
+    extern const char *const WINDOW_TITLE{"GAME"};
+}
