@@ -4,6 +4,7 @@
 
 #include "headings/inputManager.hpp"
 #include "headings/vectorOperations.hpp"
+#include "headings/entityManager.hpp"
 
 // TODO: Implement delta time everywhere
 
@@ -23,7 +24,9 @@ void Player::setup() {}
 
 void Player::update()
 {
-    Vector2 movement{(float)InputManager::getHorizontalInput(), (float)InputManager::getVerticalInput()};
+    Vector2 movement{
+        static_cast<float>(InputManager::getHorizontalInput()),
+        static_cast<float>(InputManager::getVerticalInput())};
 
     if (dashTimer <= 0)
     {
@@ -60,4 +63,12 @@ void Player::move(Vector2 direction, float speed)
 void Player::draw() const
 {
     DrawCircle(position.x + size.x / 2, position.y + size.y / 2, size.x / 2, PURPLE);
+}
+
+void Player::debugDraw() const
+{
+    std::string txt = "(" + std::to_string(position.x) + ", " + std::to_string(position.y) + ")";
+    Vector2 position{GetScreenToWorld2D({20, 40}, EntityManager::getInstance()->camera)};
+
+    DrawText(txt.c_str(), position.x, position.y, 20, BLACK);
 }

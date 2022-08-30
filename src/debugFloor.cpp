@@ -10,8 +10,8 @@ void DebugFloor::setup()
 
 void DebugFloor::draw() const
 {
-    float textureXCount = (float)size.x / texture.width;
-    float textureYCount = (float)size.y / texture.height;
+    float textureXCount = static_cast<float>(size.x) / texture.width;
+    float textureYCount = static_cast<float>(size.y) / texture.height;
 
     float xReverseCounter{textureXCount};
     int xCounter{};

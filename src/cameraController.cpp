@@ -26,7 +26,8 @@ void CameraController::update()
         Vector2 cameraPosition{EntityManager::getInstance()->camera.target};
         cameraPosition = VectorOP::lerp(cameraPosition, player->getPosition(), 0.1f);
 
-        Vector2 cameraSize{(float)constants::SCREEN_WIDTH, (float)constants::SCREEN_HEIGHT};
+        Vector2 cameraSize{static_cast<float>(constants::SCREEN_WIDTH),
+                           static_cast<float>(constants::SCREEN_HEIGHT)};
 
         cameraPosition = bindCameraLocation(cameraPosition, cameraSize);
 

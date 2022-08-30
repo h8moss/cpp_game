@@ -22,4 +22,6 @@ public:
     virtual void setup() override;
     virtual void update() override;
     virtual void draw() const override;
+
+    virtual void debugDraw() const override;
 };
