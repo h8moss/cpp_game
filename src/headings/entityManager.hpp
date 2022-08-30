@@ -27,4 +27,7 @@ public:
 
     bool areColliding(Entity *, Entity *);
     Entity *getCollision(Entity *);
+
+    // offset will move the walls inwards [offset] units
+    void createWalls(Vector2 size, int offset, int hiddenOffset);
 };

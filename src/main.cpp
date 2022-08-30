@@ -30,22 +30,24 @@ int main()
             new MessageBus(),
             new DebugFloor("FLOOR", {-750, -750}, {1500, 1500}),
             new Player(),
-            new PhysicalWall("wallL", {-900, -800}, {200, 1500}),
-            new PhysicalWall("wallT", {-800, -900}, {1500, 200}),
-            new PhysicalWall("wallRHigh", {700, -800}, {200, 700}),
-            new PhysicalWall("wallRLow", {700, 100}, {200, 700}),
-            new PhysicalWall("wallD", {-800, 700}, {1500, 200}),
-            new CameraController("cameraController", {-750, -750, 1500, 1500}),
+            //  new PhysicalWall("wallL", {-900, -800}, {200, 1500}),
+            //  new PhysicalWall("wallT", {-800, -650}, {1600, 200}),
+            //  new PhysicalWall("wallRHigh", {750, -800}, {200, 700}),
+            //  new PhysicalWall("wallRLow", {700, 100}, {200, 700}),
+            //  new PhysicalWall("wallD", {-800, 700}, {1500, 200}),
+            new CameraController("cameraController", {-800, -500, 1600, 1000}),
         },
         {
             {
-                (float)constants::SCREEN_WIDTH / 2,  // offset x from top left to center
-                (float)constants::SCREEN_HEIGHT / 2, // offset y from top left to center
+                static_cast<float>(constants::SCREEN_WIDTH) / 2,  // offset x from top left to center
+                static_cast<float>(constants::SCREEN_HEIGHT) / 2, // offset y from top left to center
             },
             {0, 0}, // camera position
             0,      // camera rotation
             1       // camera zoom set to 1
         });
+
+    em->createWalls({1600, 1000}, 50, 150);
 
     for (Entity *e : em->getEntities())
     {
@@ -94,7 +96,9 @@ int main()
         Vector2 fpsPos = GetScreenToWorld2D({10, 10}, em->camera);
         DrawFPS(fpsPos.x, fpsPos.y);
 
+        DrawRectangle(0, 0, 100, 100, RED);
 #endif
+
         // ----------------------------------------------------------------------------------
         EndMode2D();
         EndDrawing();

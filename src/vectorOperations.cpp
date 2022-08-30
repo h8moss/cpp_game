@@ -54,6 +54,33 @@ namespace VectorOP
         return {v1.x * scalar, v1.y * scalar, v1.z * scalar, v1.w * scalar};
     }
 
+    Vector2 reverse(Vector2 v)
+    {
+        return {1 / v.x, 1 / v.y};
+    }
+    Vector3 reverse(Vector3 v)
+    {
+        return {1 / v.x, 1 / v.y, 1 / v.z};
+    }
+    Vector4 reverse(Vector4 v)
+    {
+        return {1 / v.x, 1 / v.y, 1 / v.z, 1 / v.w};
+    }
+
+    Vector2 divideComponents(Vector2 v1, Vector2 v2)
+    {
+        return multiplyComponents(v1, reverse(v2));
+    }
+
+    Vector3 divideComponents(Vector3 v1, Vector3 v2)
+    {
+        return multiplyComponents(v1, reverse(v2));
+    }
+    Vector4 divideComponents(Vector4 v1, Vector4 v2)
+    {
+        return multiplyComponents(v1, reverse(v2));
+    }
+
     Vector2 normalize(Vector2 v)
     {
         float len = sqrt(v.x * v.x + v.y * v.y);
@@ -88,17 +115,35 @@ namespace VectorOP
             v1.x * v2.y - v1.y * v2.x};
     }
 
-    Vector2 dot(Vector2 v1, Vector2 v2)
+    Vector2 multiplyComponents(Vector2 v1, Vector2 v2)
     {
         return {v1.x * v2.x, v1.y * v2.y};
     }
-    Vector3 dot(Vector3 v1, Vector3 v2)
+    Vector3 multiplyComponents(Vector3 v1, Vector3 v2)
     {
         return {v1.x * v2.x, v1.y * v2.y, v1.z * v2.z};
     }
-    Vector4 dot(Vector4 v1, Vector4 v2)
+    Vector4 multiplyComponents(Vector4 v1, Vector4 v2)
     {
         return {v1.x * v2.x, v1.y * v2.y, v1.z * v2.z, v1.w * v2.w};
+    }
+
+    float dot(Vector2 v1, Vector2 v2)
+    {
+        Vector2 result{multiplyComponents(v1, v2)};
+        return result.x + result.y;
+    }
+
+    float dot(Vector3 v1, Vector3 v2)
+    {
+        Vector3 result{multiplyComponents(v1, v2)};
+        return result.x + result.y + result.z;
+    }
+
+    float dot(Vector4 v1, Vector4 v2)
+    {
+        Vector4 result{multiplyComponents(v1, v2)};
+        return result.x + result.y + result.z + result.w;
     }
 
     Vector2 lerp(Vector2 v1, Vector2 v2, float t)

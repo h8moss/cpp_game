@@ -2,6 +2,8 @@
 
 #include "headings/physicsCube.hpp"
 #include "headings/player.hpp"
+#include "headings/physicalWall.hpp"
+#include "headings/vectorOperations.hpp"
 
 EntityManager *EntityManager::instance{nullptr};
 
@@ -80,4 +82,27 @@ void EntityManager::destroyInstance()
         delete instance;
         instance = nullptr;
     }
+}
+
+void EntityManager::createWalls(Vector2 size, int offset, int hiddenOffset)
+{
+    Vector2 TLCorner{VectorOP::multiply(size, -0.5)};
+
+    Vector2 posL{VectorOP::add(TLCorner, {static_cast<float>(hiddenOffset) * -1, 0})};
+    Vector2 posR{VectorOP::add(TLCorner, {size.x - offset, 0})};
+    Vector2 posT{VectorOP::add(TLCorner, {0, static_cast<float>(hiddenOffset) * -1})};
+    Vector2 posD{VectorOP::add(TLCorner, {0, size.y - offset})};
+
+    Vector2 sizeV{static_cast<float>(offset) + hiddenOffset, size.y};
+    Vector2 sizeH{size.x, static_cast<float>(offset) + hiddenOffset};
+
+    PhysicalWall *wallLeft = new PhysicalWall("WALL L", posL, sizeV);
+    PhysicalWall *wallRight = new PhysicalWall("WALL R", posR, sizeV);
+    PhysicalWall *wallTop = new PhysicalWall("WALL T", posT, sizeH);
+    PhysicalWall *wallDown = new PhysicalWall("WALL D", posD, sizeH);
+
+    addEntity(wallLeft);
+    addEntity(wallRight);
+    addEntity(wallTop);
+    addEntity(wallDown);
 }
